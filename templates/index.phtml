@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="description" content="Composer repository of Swissup Magento 2 packages, latest stable release only.">
+    <title>Swissup Packages &mdash; latest releases</title>
+    <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fbfbfd; --panel: #fff; --line: #e3e5ea; --ink: #1d2027; --muted: #6b7280;
+      --accent: #a1680d; --warn: #b42318;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14161a; --panel: #1b1e24; --line: #2c3037; --ink: #e6e8ec; --muted: #99a0ab;
+        --accent: #e0a94a; --warn: #f97066;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scrollbar-gutter: stable; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    h1 { margin: 0 0 .35rem; font-size: 1.6rem; letter-spacing: -.01em; }
+    .lede { margin: 0 0 1.75rem; color: var(--muted); font-size: .875rem; overflow-wrap: anywhere; }
+    .lede a { color: var(--accent); text-decoration: none; }
+    .lede a:hover { text-decoration: underline; }
+    code, .version { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .search { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: 1.25rem; }
+    .field {
+      flex: 1; min-width: 15rem; display: flex; align-items: center; gap: .5rem;
+      padding: .3rem .35rem .3rem .8rem;
+      background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    }
+    .field:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .search input {
+      flex: 1; min-width: 0; padding: .25rem 0; font: inherit; color: var(--ink);
+      background: none; border: 0;
+    }
+    .search input:focus { outline: none; }
+    .search output {
+      width: 4.5rem; text-align: right; color: var(--muted); font-size: .85rem;
+      white-space: nowrap; font-variant-numeric: tabular-nums;
+    }
+    .chips { display: flex; gap: .25rem; }
+    .chip {
+      padding: .25rem .6rem; border: 1px solid var(--line); border-radius: 5px;
+      background: none; color: var(--muted); font: inherit; font-size: .78rem; cursor: pointer;
+    }
+    .chip:hover { color: var(--ink); }
+    .chip.active { border-color: var(--accent); color: var(--accent); }
+    .grid {
+      display: grid; gap: .75rem; align-items: start;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+    .package {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+      padding: .9rem 1rem; display: flex; flex-direction: column; gap: .5rem;
+    }
+    .package[hidden] { display: none; }
+    .head { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; }
+    .name { font-weight: 600; text-decoration: none; color: var(--ink); overflow-wrap: anywhere; }
+    a.name:hover { color: var(--accent); text-decoration: underline; }
+    .badge {
+      margin-left: auto; padding: 0 .35rem; border: 1px solid var(--warn); border-radius: 99px;
+      color: var(--warn); font-size: .68rem; font-weight: 600; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .version { color: var(--muted); font-size: .85rem; font-weight: 600; white-space: nowrap; }
+    .title { min-width: 0; }
+    .copy {
+      padding: 0; border: 0; background: none; cursor: pointer;
+      display: inline-flex; vertical-align: middle; color: var(--muted);
+    }
+    .copy:hover, .copy:focus-visible { color: var(--accent); }
+    @media (hover: hover) {
+      .copy { opacity: 0; transition: opacity .12s; }
+      .package:hover .copy, .copy:focus-visible, .copy.copied { opacity: 1; }
+    }
+    .copy.copied { color: var(--accent); }
+    .copy.copied svg { display: none; }
+    .copy.copied::after { content: "\2713"; font-size: .85rem; line-height: 1; }
+    details { font-size: .8rem; }
+    summary { cursor: pointer; color: var(--muted); }
+    .requires {
+      list-style: none; margin: .5rem 0 0; padding: 0 .1rem 0 0;
+      display: grid; gap: .15rem; max-height: 12rem; overflow-y: auto; overscroll-behavior: contain;
+    }
+    .requires li { display: flex; justify-content: space-between; gap: .75rem; }
+    .requires code { overflow-wrap: anywhere; }
+    .requires span { color: var(--muted); white-space: nowrap; }
+    footer { margin-top: 2.5rem; color: var(--muted); font-size: .8rem; }
+    footer a { color: inherit; }
+    </style>  </head>
+  <body>
+    <div class="wrap">
+      <h1>Swissup Packages</h1>
+      <p class="lede">
+        Scanned <time datetime="<?= $this->e($scannedAt->format(\DateTimeInterface::ATOM)) ?>"><?= $this->e($scannedAt->format('Y-m-d H:i')) ?> UTC</time> &middot;
+        Generated <time class="generated" datetime="<?= $this->e($generatedAt->format(\DateTimeInterface::ATOM)) ?>"><?= $this->e($generatedAt->format('Y-m-d H:i')) ?> UTC</time> &middot;
+        <a href="<?= $this->e($include) ?>" target="_blank" rel="noopener"><code><?= $this->e($include) ?></code></a>
+      </p>
+
+      <div class="search">
+        <label for="q" hidden>Search packages by name</label>
+        <div class="field">
+          <input id="q" type="search" placeholder="Search by name" autocomplete="off" spellcheck="false">
+          <div class="chips" id="chips">
+            <button class="chip active" type="button" data-type="" aria-pressed="true">All</button>
+            <button class="chip" type="button" data-type="magento2-module" aria-pressed="false">Modules</button>
+            <button class="chip" type="button" data-type="magento2-theme" aria-pressed="false">Themes</button>
+          </div>
+        </div>
+        <output id="shown" for="q"><?= count($packages) ?> of <?= count($packages) ?></output>
+      </div>
+
+      <div class="grid" id="packages">
+<?php foreach ($packages as $package): ?>
+<?= $this->render('package', ['package' => $package]) ?>
+<?php endforeach; ?>
+      </div>
+
+      <footer>
+        Sourced from
+        <a href="https://packagist.org/packages/swissup/" target="_blank" rel="noopener">Packagist</a>
+        and the
+        <a href="https://swissup.github.io/packages/" target="_blank" rel="noopener">Swissup repository</a>,
+        which keeps every historical version.
+      </footer>
+    </div>
+
+    <script>
+    (function () {
+      var input = document.getElementById('q');
+      var output = document.getElementById('shown');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.package'));
+      var total = cards.length;
+
+      var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+      var type = '';
+
+      var grid = document.getElementById('packages');
+
+      // Leftmost-greedy subsequence scan: null when the letters are not all present in order,
+      // otherwise a score favouring runs, word starts and matches near the front of the name.
+      // The score may be negative, so it cannot double as the no-match signal.
+      function score(needle, name) {
+        var points = 0;
+        var from = 0;
+
+        for (var i = 0; i < needle.length; i++) {
+          var at = name.indexOf(needle.charAt(i), from);
+
+          if (at === -1) return null;
+          if (i > 0 && at === from) points += 12;
+          if (at === 0 || '/-_.'.indexOf(name.charAt(at - 1)) !== -1) points += 8;
+
+          from = at + 1;
+        }
+
+        return points - from;
+      }
+
+      function apply() {
+        var needle = input.value.trim().toLowerCase();
+        var ranked = [];
+
+        for (var i = 0; i < total; i++) {
+          var rank = needle === '' ? 0 : score(needle, cards[i].dataset.search);
+          var hit = rank !== null && (type === '' || cards[i].dataset.type === type);
+
+          cards[i].hidden = !hit;
+          if (hit) ranked.push([rank, i]);
+        }
+
+        ranked.sort(function (a, b) { return b[0] - a[0] || a[1] - b[1]; });
+
+        var order = document.createDocumentFragment();
+        ranked.forEach(function (entry) { order.appendChild(cards[entry[1]]); });
+        grid.appendChild(order);
+
+        output.textContent = ranked.length + ' of ' + total;
+      }
+
+      input.addEventListener('input', apply);
+
+      document.getElementById('chips').addEventListener('click', function (event) {
+        var chip = event.target.closest('.chip');
+        if (!chip) return;
+        type = chip.dataset.type;
+        chips.forEach(function (other) {
+          var on = other === chip;
+          other.classList.toggle('active', on);
+          other.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        apply();
+      });
+
+      document.getElementById('packages').addEventListener('click', function (event) {
+        var button = event.target.closest('.copy');
+        if (!button || !navigator.clipboard) return;
+        navigator.clipboard.writeText(button.dataset.copy).then(function () {
+          button.classList.add('copied');
+          setTimeout(function () { button.classList.remove('copied'); }, 1200);
+        });
+      });
+    })();
+    </script>
+  </body>
+</html>

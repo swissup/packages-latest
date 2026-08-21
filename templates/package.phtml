@@ -1,0 +1,26 @@
+      <article class="package" data-search="<?= $this->e($package->search) ?>" data-type="<?= $this->e($package->type) ?>">
+        <div class="head">
+          <span class="title">
+<?php if ($package->url !== null): ?>
+            <a class="name" href="<?= $this->e($package->url) ?>" target="_blank" rel="noopener"><?= $this->e($package->name) ?></a>
+<?php else: ?>
+            <span class="name"><?= $this->e($package->name) ?></span>
+<?php endif; ?>
+            <button class="copy" type="button" data-copy="<?= $this->e($package->name) ?>" aria-label="Copy <?= $this->e($package->name) ?>" title="Copy package name"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </span>
+<?php if ($package->abandoned): ?>
+          <span class="badge">abandoned</span>
+<?php endif; ?>
+          <span class="version"<?php if ($package->versionTitle !== ''): ?> title="<?= $this->e($package->versionTitle) ?>"<?php endif; ?>><?= $this->e($package->version) ?></span>
+        </div>
+<?php if ($package->requires !== []): ?>
+        <details>
+          <summary><?= count($package->requires) ?> requirement<?= count($package->requires) === 1 ? '' : 's' ?></summary>
+          <ul class="requires">
+<?php foreach ($package->requires as $requirement => $constraint): ?>
+            <li><code><?= $this->e($requirement) ?></code><span><?= $this->e($constraint) ?></span></li>
+<?php endforeach; ?>
+          </ul>
+        </details>
+<?php endif; ?>
+      </article>
