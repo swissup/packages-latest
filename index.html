@@ -29,6 +29,7 @@
     .lede { margin: 0 0 1.75rem; color: var(--muted); font-size: .875rem; overflow-wrap: anywhere; }
     .lede a { color: var(--accent); text-decoration: none; }
     .lede a:hover { text-decoration: underline; }
+    .lede time { white-space: nowrap; }
     code, .version { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     .search { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: 1.25rem; }
     .field {
@@ -95,15 +96,35 @@
     .requires span { color: var(--muted); white-space: nowrap; }
     footer { margin-top: 2.5rem; color: var(--muted); font-size: .8rem; }
     footer a { color: inherit; }
-    </style>  </head>
+    </style>
+  </head>
   <body>
     <div class="wrap">
       <h1>Swissup Packages</h1>
       <p class="lede">
-        Scanned <time datetime="2026-08-25T10:52:28+00:00">2026-08-25 10:52 UTC</time> &middot;
-        Generated <time class="generated" datetime="2026-08-21T14:14:44+00:00">2026-08-21 14:14 UTC</time> &middot;
+        Scanned <time datetime="2026-08-25T11:10:39+00:00">2026-08-25 11:10</time> &middot;
+        Generated <time class="generated" datetime="2026-08-21T14:14:44+00:00">2026-08-21 14:14</time> &middot;
         <a href="include/all$6362fccba6c435f0417720da7de639e0d1f1e093.json" target="_blank" rel="noopener"><code>include/all$6362fccba6c435f0417720da7de639e0d1f1e093.json</code></a>
       </p>
+      <script>
+      // Parser-blocking on purpose: the timestamps are rewritten in the visitor's zone
+      // before this paragraph is ever painted, so the UTC values never flash.
+      (function () {
+        var zone = '';
+        try { zone = ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (error) {}
+
+        Array.prototype.forEach.call(document.querySelectorAll('.lede time[datetime]'), function (stamp) {
+          var at = new Date(stamp.getAttribute('datetime'));
+
+          if (isNaN(at.getTime())) return;
+
+          // sv-SE is the locale whose own format is ISO 8601, so this reproduces the
+          // server's "Y-m-d H:i" in the visitor's zone without hand-formatting.
+          stamp.textContent = at.toLocaleString('sv-SE', { dateStyle: 'short', timeStyle: 'short' });
+          stamp.title = at.toLocaleString() + zone;
+        });
+      })();
+      </script>
 
       <div class="search">
         <label for="q" hidden>Search packages by name</label>
